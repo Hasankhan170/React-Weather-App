@@ -58,23 +58,37 @@ function App() {
 
   const [weather,setweather] = useState(null)
   const [city, setCity] = useState('')
+  const [error,setError] = useState('')
   const inputVal = useRef()
 
   useEffect(()=>{
     if(city){
       axios(`http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
     .then((res)=>{
-      console.log(res.data);
-      setweather(res.data)
+      if(res.data && res.data.location){
+        console.log(res.data);
+        setweather(res.data)
+        setError('')
+      }else{
+        setweather(null)
+        setError('City not found')
+      }
     })
     .catch((err)=>{
       console.log(err);
+      setweather(null)
+      setError('Error fetching weather data')
     })
     }
   },[city])
 
   function searchVal(){
-    setCity(inputVal.current.value )
+    const city = inputVal.current.value;
+    if(!city){
+      setError('Please enter city name')
+      return;
+    }
+    setCity(city)
     inputVal.current.value = ""
   }
   return (
@@ -82,6 +96,7 @@ function App() {
     <h1>quiz app</h1>
     <input required type="text" placeholder="search here..." ref={inputVal} />
     <button onClick={searchVal}>search</button>
+    {error && <p style={{ color: 'red' }}>{error}</p>}
     {
       weather && (
         <div>
