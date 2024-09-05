@@ -25,9 +25,16 @@ function App() {
   function searchWeather(){
     const city = inputVal.current.value;
     axios('http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no')
+    .then((res)=>{
+      console.log(res.data);
+      setRenderData(res.data);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
     console.log(city);
     
-    
+    inputVal.current.value = ''
   }
   return (
     <>
