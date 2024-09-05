@@ -1,6 +1,6 @@
 
 body{
-    
+    background-color: #050A30;
 }
 .container{
     display: flex;
@@ -10,18 +10,57 @@ body{
     background-color: transparent;
     width: 50%;
     margin: 0 auto;
-    background-color: #050A30;
-    color: white;
+    background-color: #000C66;
+    color: #7EC8E3;
     padding: 20px;
     border-radius: 20px;
+    margin-top: 50px;
 }
 
 .input{
-    padding: 10px 25px;
+    padding: 13px 30px;
+    outline: none;
+    border: none;
 }
 
 .btn{
-    padding: 11px 25px;
-    background-color: #7EC8E3;
-    color: black;
+    padding: 13px 25px;
+    background-color: #0000FF;
+    border: none;
+    color:  #7EC8E3;
+    font-weight: bold;
+}
+
+
+.maindiv{
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+@media (max-width:660px){
+    body{
+        font-size: 16px;
+    }
+   .container{
+    width: 80%;
+   }
+}
+
+@media (max-width:410px){
+    body{
+        font-size: 16px;
+    }
+   .container{
+    width: 90%;
+   }
+   .inp-btn{
+    text-align: center;
+   }
+   .btn{
+    margin-top: 10px;
+    padding: 13px 90px;
+ 
+   }
 }

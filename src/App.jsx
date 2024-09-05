@@ -51,20 +51,22 @@ function App() {
     <>
     <div className="container">
     <h1 className="center">Weather app</h1>
-   <div>
+   <div className="inp-btn">
    <input className="input" required type="text" placeholder="search here..." ref={inputVal} />
    <button className="btn" onClick={searchVal}>search</button>
    </div>
     {error && <p style={{ color: 'red' }}>{error}</p>}
     {
       weather.length > 0 && (
-        <div>
+        <div className="maindiv">
            {
             weather.map((items,index)=>{
                return <div key={index}>
+                <h1>{items.current.temp_c}°C</h1>
+                <img width="120px" src={items.current.condition.icon} alt='weatherImg' />
                   <h2>{items.location.name}</h2>
-                  <p>Temperature: {items.current.temp_c}°C</p>
                   <p>Humidity: {items.current.humidity}%</p>
+                  <hr />
                 </div> 
             })
            }
