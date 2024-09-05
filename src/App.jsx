@@ -10,19 +10,29 @@ function App() {
 
   useEffect(()=>{
     const fetchData = async ()=>{
-      if(city){
-        const res = await axios(`http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
+      if(city.trim()){
+        try {
+          const res = await axios(`http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
+
          if(res.data && res.data.location){
           console.log(res.data);
-          if(!weather.some(item=> item.location.name == res.data.location.name)){
+
+          if(!weather.some(item=> item.location.name === res.data.location.name)){
+
             setweather(prevData =>[...prevData , res.data])
+            
           }
-           setError('')
+          setError('')
          }else{
            setError('City not found')
          }
+        } catch (error) {
+          console.log(error);
+          setError('city not found')
+          alert('city not found')
+        }
        }
-    }
+    };
     fetchData()
   },[city,weather])
 
