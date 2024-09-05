@@ -14,7 +14,7 @@ function App() {
     const fetchData = async ()=>{
       if(city.trim()){
         try {
-          const res = await axios(`http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
+          const res = await axios(`https://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
 
          if(res.data && res.data.location){
           console.log(res.data);
@@ -51,10 +51,10 @@ function App() {
     <>
     <div className="container">
     <h1 className="center">Weather app</h1>
-   <div className="inp-btn">
-   <input className="input" required type="text" placeholder="search here..." ref={inputVal} />
-   <button className="btn" onClick={searchVal}>search</button>
-   </div>
+    <div className="inp-btn">
+    <input className="input" required type="text" placeholder="search here..." ref={inputVal} />
+    <button className="btn" onClick={searchVal}>search</button>
+    </div>
     {error && <p style={{ color: 'red' }}>{error}</p>}
     {
       weather.length > 0 && (
