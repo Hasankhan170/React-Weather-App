@@ -3,14 +3,15 @@ import React, { useEffect, useRef, useState } from 'react'
 
 function App() {
 
-  // const [renderData,setRenderData] = useState([])
+  const [renderData,setRenderData] = useState([])
   const inputVal = useRef()
 
   try {
     useEffect(()=>{
-      axios('http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=&aqi=no')
+      axios('http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=pakistan&aqi=no')
       .then((res)=>{
-        console.log(res.data);     
+        console.log(res.data);    
+        setRenderData(res.data); 
       })
       .catch((err)=>{
         console.log(err);
@@ -20,8 +21,12 @@ function App() {
     console.log(error);
     
   }
+
   function searchWeather(){
-    console.log(inputVal.current.value);
+    const city = inputVal.current.value;
+    axios('http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no')
+    console.log(city);
+    
     
   }
   return (
