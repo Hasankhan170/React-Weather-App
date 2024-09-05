@@ -1,5 +1,7 @@
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
+import './index.css'
+
 
 function App() {
 
@@ -47,9 +49,12 @@ function App() {
   }
   return (
     <>
-    <h1>Weather app</h1>
-    <input required type="text" placeholder="search here..." ref={inputVal} />
-    <button onClick={searchVal}>search</button>
+    <div className="container">
+    <h1 className="center">Weather app</h1>
+   <div>
+   <input className="input" required type="text" placeholder="search here..." ref={inputVal} />
+   <button className="btn" onClick={searchVal}>search</button>
+   </div>
     {error && <p style={{ color: 'red' }}>{error}</p>}
     {
       weather.length > 0 && (
@@ -67,6 +72,7 @@ function App() {
       )
        
     }
+    </div>
     </>
   )
 }
