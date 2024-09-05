@@ -1,107 +1,58 @@
-// import axios from 'axios';
-// import { useEffect, useRef, useState } from 'react'
-
-
-
-// function App() {
-
-//   const [weatherData,setweatherData] = useState(null)
-//   const [city, setCity] = useState('')
-//   const inputVal = useRef()
-
-
-//     useEffect(()=>{
-//      if(city){
-//       axios(`http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
-//       .then((res)=>{
-//         console.log(res.data);    
-//         setweatherData(res.data); 
-//       })
-//       .catch((err)=>{
-//         console.log(err);
-//       })
-//      }
-//     },[city])
-
-
-//   function searchVal(){
-//    setCity(inputVal.current.value)
-
-//    inputVal.current.value = ""
-//   }
-    
-    
-//   return (
-//     <>
-//       <h1>Hello Weather</h1>
-//       <input ref={inputVal} type="text" placeholder="Enter city name" />
-//       <button onClick={searchVal}>Search</button>
-//       {weatherData &&(
-//         <div>
-//           <h2>Weather in {weatherData.location.name}</h2>
-//           <p>Temperature: {weatherData.current.temp_c}°C</p>
-//           <p>Humidity: {weatherData.current.humidity}%</p>
-
-//         </div>
-//       )}
-//     </>
-//   )
-// }
-
-// export default App
-
-
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 
 function App() {
 
-  const [weather,setweather] = useState(null)
+  const [weather,setweather] = useState([])
   const [city, setCity] = useState('')
   const [error,setError] = useState('')
   const inputVal = useRef()
 
   useEffect(()=>{
-    if(city){
-      axios(`http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
-    .then((res)=>{
-      if(res.data && res.data.location){
-        console.log(res.data);
-        setweather(res.data)
-        setError('')
-      }else{
-        setweather(null)
-        setError('City not found')
-      }
-    })
-    .catch((err)=>{
-      console.log(err);
-      setweather(null)
-      setError('Error fetching weather data')
-    })
+    const fetchData = async ()=>{
+      if(city){
+        const res = await axios(`http://api.weatherapi.com/v1/current.json?key=b90421cd7596432bbb2144327241406&q=${city}&aqi=no`)
+         if(res.data && res.data.location){
+          console.log(res.data);
+          if(!weather.some(item=> item.location.name == res.data.location.name)){
+            setweather(prevData =>[...prevData , res.data])
+          }
+           setError('')
+         }else{
+           setError('City not found')
+         }
+       }
     }
-  },[city])
+    fetchData()
+  },[city,weather])
 
   function searchVal(){
-    const city = inputVal.current.value;
-    if(!city){
+    const cityName = inputVal.current.value.trim();
+    if(!cityName){
       setError('Please enter city name')
       return;
     }
-    setCity(city)
+    setCity(cityName)
     inputVal.current.value = ""
   }
   return (
     <>
-    <h1>quiz app</h1>
+    <h1>Weather app</h1>
     <input required type="text" placeholder="search here..." ref={inputVal} />
     <button onClick={searchVal}>search</button>
     {error && <p style={{ color: 'red' }}>{error}</p>}
     {
-      weather && (
+      weather.length > 0 && (
         <div>
-           <h2>{weather.location.name}</h2>
-           <p>temperature: {weather.current.temp_c}°C</p>
+           {
+            weather.map((items,index)=>{
+               return <div key={index}>
+                  <h2>{items.location.name}</h2>
+                  <p>Temperature: {items.current.temp_c}°C</p>
+                  <p>Humidity: {items.current.humidity}%</p>
+                </div> 
+            })
+           }
         </div>
       )
        
