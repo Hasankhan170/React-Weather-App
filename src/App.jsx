@@ -5,7 +5,7 @@ import './index.css'
 
 function App() {
 
-  const [weather,setweather] = useState([])
+  const [weather,setWeather] = useState([])
   const [city, setCity] = useState('')
   const [error,setError] = useState('')
   const inputVal = useRef()
@@ -21,7 +21,7 @@ function App() {
 
           if(!weather.some(item=> item.location.name === res.data.location.name)){
 
-            setweather(prevData =>[...prevData , res.data])
+            setWeather(prevData =>[...prevData , res.data])
             
           }
           setError('')
@@ -70,10 +70,10 @@ function App() {
     {
       weather.length > 0 && (
         <div className="maindiv">
-           {
+{
             weather.map((items,index)=>{
-               return <div key={index}>
-                 <img width="120px" src={items.current.condition.icon} alt='weatherImg' />
+  return <div key={index}>
+                <img width="120px" src={items.current.condition.icon} alt='weatherImg' />
                 <h2>{items.current.temp_c}°C <br /><span style={{
                   fontSize : '30px'
                 }}>{items.location.name}</span></h2>
@@ -81,35 +81,32 @@ function App() {
                     display: 'flex',
                     justifyContent:'space-between',
                     marginBottom: '10px',
- 
                   }}>
-                   <div style={{
+<div style={{
+                    display: 'flex',
+                    alignItems:'center',
+                    textAlign: 'start',}}>
+  <img style={{
+                    width : '40px'
+      }} src="https://cdn-icons-png.flaticon.com/128/13945/13945026.png" alt="" />
+    <p> {items.current.humidity}% <br /><span>Humidity: </span></p>
+    </div>
+    <div style={{
                     display: 'flex',
                     alignItems:'center',
                     textAlign: 'start',
-                   }}>
-                   <img style={{
+    }}>
+    <img style={{
                     width : '40px'
-                   }} src="https://cdn-icons-png.flaticon.com/128/13945/13945026.png" alt="" />
-                   <p> {items.current.humidity}% <br /><span>Humidity: </span></p>
-                   </div>
-                   <div style={{
-                    display: 'flex',
-                    alignItems:'center',
-                    textAlign: 'start',
-                   }}>
-                   <img style={{
-                    width : '40px'
-                   }} src="https://cdn-icons-png.flaticon.com/128/11129/11129055.png" alt="" />
+    }} src="https://cdn-icons-png.flaticon.com/128/11129/11129055.png" alt="" />
                     <p> {items.current.wind_kph} km/h <br /><span>Wind Speed: </span></p>
-                   </div>
+    </div>
                   </div>
                   <hr />
                 </div> 
             })
-           }
+}
         </div>
-       
     )}
     </div>
     </>
