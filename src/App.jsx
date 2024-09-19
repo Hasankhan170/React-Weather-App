@@ -50,7 +50,18 @@ function App() {
   return (
     <>
     <div className="container">
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: '10px',
+      marginBottom: '20px'
+    }}>
     <h1 className="center">Weather app</h1>
+    <img style={{
+      width: '40px'
+    }} src="https://cdn-icons-png.flaticon.com/128/1163/1163661.png" alt="" />
+    </div>
     <div className="inp-btn">
     <input className="input" required type="text" placeholder="search here..." ref={inputVal} />
     <button className="btn" onClick={searchVal}>search</button>
@@ -62,18 +73,44 @@ function App() {
            {
             weather.map((items,index)=>{
                return <div key={index}>
-                <h1>{items.current.temp_c}°C</h1>
-                <img width="120px" src={items.current.condition.icon} alt='weatherImg' />
-                  <h2>{items.location.name}</h2>
-                  <p>Humidity: {items.current.humidity}%</p>
+                 <img width="120px" src={items.current.condition.icon} alt='weatherImg' />
+                <h2>{items.current.temp_c}°C <br /><span style={{
+                  fontSize : '30px'
+                }}>{items.location.name}</span></h2>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent:'space-between',
+                    marginBottom: '10px',
+ 
+                  }}>
+                   <div style={{
+                    display: 'flex',
+                    alignItems:'center',
+                    textAlign: 'start',
+                   }}>
+                   <img style={{
+                    width : '40px'
+                   }} src="https://cdn-icons-png.flaticon.com/128/13945/13945026.png" alt="" />
+                   <p> {items.current.humidity}% <br /><span>Humidity: </span></p>
+                   </div>
+                   <div style={{
+                    display: 'flex',
+                    alignItems:'center',
+                    textAlign: 'start',
+                   }}>
+                   <img style={{
+                    width : '40px'
+                   }} src="https://cdn-icons-png.flaticon.com/128/11129/11129055.png" alt="" />
+                    <p> {items.current.wind_kph} km/h <br /><span>Wind Speed: </span></p>
+                   </div>
+                  </div>
                   <hr />
                 </div> 
             })
            }
         </div>
-      )
        
-    }
+    )}
     </div>
     </>
   )
